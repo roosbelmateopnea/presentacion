@@ -132,61 +132,116 @@ preguntas = {
     ]
 }
 
+pago = 1
 contador = 1
 condicion = True
+condicionb = True
 comodin1 = ["1.Llamar a un amigo"]
 comodin2 = ["2.50/50"]
 comodin3 = ["3.Cambiar de pregunta"]
-
 while condicion:
-    print(preguntas[contador][0]["pregunta"])
+    print("NIVEL:",contador,preguntas[contador][0]["pregunta"])
     for opcion in preguntas[contador][0]["opciones"]:
         print(opcion)
+    comodin = input("Deseas usar algun'comodin' ingrese si/no:").lower()
+    if comodin == "no":
+        respuesta = input("Ingrese por favor la respuesta 'A','B','C','D':").upper()
+        if respuesta == preguntas[contador][0]["respuesta"]:
+            print("Felicidades. Respuesta correcta.")
+            print("Tu pago hasta el Momento es de:",pago * 100000)
+            contador += 1
+            pago += 1
+        else:
+            print("Lo siento mucho. Respuesta incorrecta. Has perdido tu dinero.")
+            condicion = False
+            condicionb = False
+            break
+    elif comodin == "si":
+            while condicionb:
+                    print("")
+                    print("")
+                    print("")
+                    print("")
+                    print("¡Vamos con toda tu Puedes!")
+                    print("Comodines Disponibles:")
+                    print(comodin1)
+                    print(comodin2)
+                    print(comodin3)
+                    comodin = input("Escribe 1, 2 o 3 según el comodín que deseas usar: ")
+                    if comodin == "1":
+                        aleatorio = random.choice(["A", "B", "C", "D"])
+                        print("")
+                        print("Tu amigo cree que la respuesta es:",aleatorio)
+                        comodin1.remove("1.Llamar a un amigo")            
+                        print(preguntas[contador][0]["pregunta"])
+                        for opcion in preguntas[contador][0]["opciones"]:
+                            print(opcion)
+                        respuestab = input("Ingrese por favor la respuesta 'A','B','C','D':").upper()
+                        if respuestab == preguntas[contador][0]["respuesta"]:
+                            print("¡Correcto Felicidades!")
+                            print("Tu pago hasta el Momento es de:", pago * 100000)
+                            contador += 1
+                            pago += 1
+                        else:
+                            print("Incorrecto. Has perdido Tu Dinero.")
+                            condicion = False
+                            condicionb = False
+                            break
+                    elif comodin == "2":
+                        correcta = preguntas[contador][0]["respuesta"]
+                        letras = ["A", "B", "C", "D"]
+                        letras.remove(correcta)
+                        opcion_extra = random.choice(letras)
+                        print("")
+                        print("")
+                        print("")
+                        print("¡Vamos con toda tu Puedes!")
+                        print("Opciones disponibles después del 50/50:")
+                        print("NIVEL:",contador,preguntas[contador][0]["pregunta"])
+                        for prueba in preguntas[contador][0]["opciones"]:
+                            if prueba[0] == correcta or prueba[0] == opcion_extra:
+                                print(prueba)
+                        comodin2.remove("2.50/50")
+                        respuesta = input("Ingrese por favor la respuesta 'A','B','C','D':").upper()
+                        if respuesta == correcta:
+                            print("¡Correcto Felicidades!")
+                            print("Tu pago hasta el Momento es de:", pago * 100000)
+                            contador += 1
+                            pago += 1
+                        else:
+                            print("Incorrecto. Has perdido Tu Dinero.")
+                            condicion = False
+                            condicionb = False
+                            break
+                    elif comodin == "3":
+                        print("")
+                        print("¡Vamos con toda tu Puedes!")
+                        comodin3.remove("3.Cambiar de pregunta")
+                        print("NIVEL:",contador,preguntas[contador][1]["pregunta"])
+                        for opcion in preguntas[contador][1]["opciones"]:
+                            print(opcion)
+                        nueva_respuesta = input("Ingrese por favor la respuesta 'A','B','C','D':").upper()
+                        if nueva_respuesta == preguntas[contador][1]["respuesta"]:
+                            print("¡Correcto Felicidades!")
+                            print("Tu pago hasta el Momento es de:",pago * 100000)
+                            contador += 1
+                            pago += 1
+                        else:
+                            print("Incorrecto. Has perdido Tu Dinero.")
+                            condicion = False
+                            condicionb = False
+                            break
+                    break
+            if comodin1 == [] and comodin2 == [] and comodin3 == []:
+                print("Lo Siento Mucho Comodines no Disponible")
+                condicionb = False       
+                
+                
 
-    respuesta = input("Ingrese por favor la respuesta 'A','B','C','D' o la palabra 'comodin': ").upper()
-    print("Tu pago hasta el Momento es de:",contador * 100000)
-
-    if respuesta == "COMODIN":
-        print("Comodines Disponibles")
-        print(comodin1)
-        print(comodin2)
-        print(comodin3)
-  
-        comodin = input("Escribe 1, 2 o 3 según el comodín que deseas usar: ")
-
-        if comodin == "1":
-            aleatorio = random.choice(["A", "B", "C", "D"])
-            print("Tu amigo cree que la respuesta es:", aleatorio)
-            comodin1.remove("1.Llamar a un amigo")
-
-        elif comodin == "2":
-            correcta = preguntas[contador][0]["respuesta"]
-            letras = ["A", "B", "C", "D"]
-            letras.remove(correcta)
-            opcion_extra = random.choice(letras)
-
-            print("Opciones disponibles después del 50/50:")
-            for prueba in preguntas[contador][0]["opciones"]:
-                if prueba[0] == correcta or prueba[0] == opcion_extra:
-                    print(prueba)
-            comodin2.remove("2.50/50")
-
-        elif comodin == "3":
-            print(preguntas[contador][1]["pregunta"])
-            for opcion in preguntas[contador][1]["opciones"]:
-                print(opcion)
-            nueva_respuesta = input("Tu respuesta: ").upper()
-            if nueva_respuesta == preguntas[contador][1]["respuesta"]:
-                print("¡Correcto Felicidades!")
-                contador += 1
-            else:
-                print("Incorrecto. Has perdido Tu Dinero.")
-                condicion = False
-            comodin1.remove("3.Cambiar de pregunta")
-
-    elif respuesta == preguntas[contador][0]["respuesta"]:
-        print("Felicidades. Respuesta correcta.")
-        contador += 1
-    else:
-        print("Lo siento mucho. Respuesta incorrecta. Has perdido tu dinero.")
-        condicion = False
+        
+                
+        
+        
+        
+        
+        
